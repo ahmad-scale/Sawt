@@ -11,7 +11,7 @@ const postModel = new mongoose.Schema(
             type: String,
             required: [true, 'Post Content Cannot be empty']
         },
-        imageUrl: {
+        image: {
             type: String,
             required: false
         }

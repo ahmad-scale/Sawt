@@ -32,7 +32,7 @@ const userSchema = new mongoose.Schema(
             required: false,
             maxLength: [500, 'User Bio cannot be longer than 500 characters']
         },
-        avatarUrl: {
+        avatar: {
             type: String,
             trim: true
         },
@@ -49,17 +49,16 @@ const userSchema = new mongoose.Schema(
     }
 )
 
-userSchema.pre('save', async function (next) {
+userSchema.pre('save', async function () {
     if (!this.isModified('password')) {
-        return next()
+        return
     }
 
     try {
         const salt = await bcrypt.genSalt(10)
         this.password = await bcrypt.hash(this.password, salt)
-        return next()
     } catch (err) {
-        return next(err)
+        throw err
     }
 })
 
