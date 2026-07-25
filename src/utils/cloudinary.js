@@ -16,12 +16,25 @@ if (hasCloudinaryConfig) {
     });
 }
 
+const removeLocalFile = (localFilePath) => {
+    if (!localFilePath) return
+
+    try {
+        if (fs.existsSync(localFilePath)) {
+            fs.unlinkSync(localFilePath)
+        }
+    } catch (error) {
+        console.error('Temp file cleanup failed', error)
+    }
+}
+
 const uploadOnCloudinary = async (localFilePath) => {
     try {
         if (!localFilePath) return null
 
         if (!hasCloudinaryConfig) {
             console.error('Cloudinary upload failed: missing configuration. Set CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, and CLOUDINARY_API_SECRET.')
+            removeLocalFile(localFilePath)
             return null
         }
 
@@ -39,13 +52,11 @@ const uploadOnCloudinary = async (localFilePath) => {
 
         console.log('File uploaded on cloudinary', response.url);
 
-        fs.unlinkSync(localFilePath)
+        removeLocalFile(localFilePath)
 
         return response
     } catch (error) {
-        if (localFilePath && fs.existsSync(localFilePath)) {
-            fs.unlinkSync(localFilePath)
-        }
+        removeLocalFile(localFilePath)
 
         console.error('Cloudinary upload failed', error);
         return null
