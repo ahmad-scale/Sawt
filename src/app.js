@@ -8,11 +8,15 @@ app.use(cookieParser())
 // Routes import
 const authRoutes = require('../src/routes/auth.route')
 const postRoutes = require('./routes/post.routes')
+const adminRoutes = require('./routes/admin.routes')
 
 //Auth Routes
 app.use('/api/auth', authRoutes)
 
 //Post Routes
 app.use('/api/posts', postRoutes)
+
+//Admin Routes
+app.use('/api/user', adminRoutes)
 
 module.exports = app
