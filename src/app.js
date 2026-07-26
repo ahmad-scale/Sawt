@@ -4,7 +4,7 @@ const app = express()
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-app.use(express.text({ type: '*/*' }))
+app.use(express.text({ type: ['text/plain', 'application/xml'] }))
 app.use(cookieParser())
 
 // Routes import
@@ -12,6 +12,7 @@ const authRoutes = require('../src/routes/auth.route')
 const postRoutes = require('./routes/post.routes')
 const adminRoutes = require('./routes/admin.routes')
 const commentRoutes = require('./routes/comment.routes')
+const likeRoutes = require('./routes/like.routes')
 
 //Auth Routes
 app.use('/api/auth', authRoutes)
@@ -24,5 +25,8 @@ app.use('/api/user', adminRoutes)
 
 //Comments Routes
 app.use('/api/comment', commentRoutes)
+
+//Like Routes
+app.use('/api/like', likeRoutes)
 
 module.exports = app

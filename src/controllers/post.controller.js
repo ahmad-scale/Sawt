@@ -5,7 +5,7 @@ const fs = require('fs').promises
 
 async function createPost(req, res) {
     const userId = req.user?._id
-    const { content } = req.body
+    const { content } = req.body || {}
     const imageLocalPath = req.files?.image?.[0]?.path
 
     if (!userId) {
