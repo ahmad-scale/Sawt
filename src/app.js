@@ -13,6 +13,7 @@ const postRoutes = require('./routes/post.routes')
 const adminRoutes = require('./routes/admin.routes')
 const commentRoutes = require('./routes/comment.routes')
 const likeRoutes = require('./routes/like.routes')
+const followRoutes = require('./routes/follow.routes')
 
 //Auth Routes
 app.use('/api/auth', authRoutes)
@@ -28,5 +29,8 @@ app.use('/api/comment', commentRoutes)
 
 //Like Routes
 app.use('/api/like', likeRoutes)
+
+//Follow Routes
+app.use('/api/follow', followRoutes)
 
 module.exports = app
